@@ -9,8 +9,11 @@ public class TestPuzzleJava {
         
         String randomLetter = generator.getRandomLetter();
         System.out.println(randomLetter);
-        //..
-        // Write your other test cases here.
-        //..
+        
+        String randomPassword = generator.generatePassword();
+        System.out.println(randomPassword);
+
+        System.out.println(generator.getNewPasswordSet(5));
+        System.out.println(generator.getNewPasswordSet(8));
     }
 }
