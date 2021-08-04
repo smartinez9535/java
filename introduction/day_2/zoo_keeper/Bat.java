@@ -3,7 +3,7 @@ public class Bat extends Mammal{
 
     // CONSTRUCTOR
     public Bat(){
-        this.changeEnergy(200);
+        this.energyLevel = 300;
     }
     // GETTER(READ) AND SETTER(CREATE/UPDATE) METHODS
     public void fly(){

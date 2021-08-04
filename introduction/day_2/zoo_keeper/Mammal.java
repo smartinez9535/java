@@ -1,6 +1,6 @@
 public class Mammal{
     // ATTRIBUTES & MEMBER VARIABLES
-    private int energyLevel;
+    protected int energyLevel;
 
     // CONSTRUCTOR
     public Mammal(){
