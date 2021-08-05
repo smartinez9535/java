@@ -131,8 +131,64 @@ class SLL{
         }
         return Math.floor(sum / amount); 
     }
-}
 
+    /*---------------------------------------------------------------------------------------- */
+
+    contains(val){
+        if(this.head == null){
+            console.log("LIST EMPTY")
+            return false;
+        }
+          // IF THE LIST IS NOT EMPTY
+        var runner = this.head
+        while(runner != null){
+            if(runner.value == val){
+                return true;
+            }
+            runner = runner.next;
+        }
+        return false; 
+    }
+
+    removeBack(){
+        if(this.head == null || this.head.next == null){
+            return null;
+        }
+          // IF THE LIST IS NOT EMPTY
+        let runner = this.head
+        while(runner.next.next != null){
+            runner = runner.next;
+        }
+
+        runner.next = null;
+        return this.head;
+
+    }
+
+    containsRecursive(val, current = this.head){
+        if(current == null){
+            return false;
+        }
+
+        else if(current.value == val){
+            return true;
+        }
+        
+        return this.containsRecursive(val, current.next);
+    }
+
+    recursiveMax(runner = this.head, maxNode = this.head){
+        if(runner == null){
+            return maxNode.value;
+        }
+        else if(maxNode.value < runner.value){
+            maxNode = runner;
+        }
+
+        return this.recursiveMax(runner.next, maxNode);
+    }
+}
+/*
 var newList = new SLL(); 
 
 newList.insertAtFront(10);
@@ -156,3 +212,4 @@ newList3.insertAtFront(100);
 newList3.insertAtFront(200);
 newList3.insertAtFront(300);
 console.log(newList3.average());
+*/
