@@ -187,6 +187,77 @@ class SLL{
 
         return this.recursiveMax(runner.next, maxNode);
     }
+
+    /*------------------------------------------------------------------ */
+
+    secondToLast(){
+        if(this.head == null || this.head.next == null){
+            return null;
+        }
+          // IF THE LIST IS NOT EMPTY
+        let runner = this.head
+        while(runner.next.next != null){
+            runner = runner.next;
+        }
+
+        return runner.value;
+    }
+
+    removeVal(val){
+
+        if(this.head == null) return false;
+
+        if(this.head.value == val){
+            let temp = this.head;
+            this.head = this.next;
+            temp.next = null;
+            return true;
+        }
+
+        let runner = this.head
+        while(runner.next.next != null){
+            if(runner.next.value == val){
+                temp = runner.next;
+                runner.next = runner.next.next;
+                temp.next = null;
+                return true;
+            }
+            runner = runner.next;
+        }
+
+        if(runner.next.value == val){
+            runner.next = null;
+            return true;
+        }
+
+        return false;
+    }
+
+    kthToLast(k){
+        let length = 0;
+
+        if(this.head == null){
+            return null;
+        }
+          // IF THE LIST IS NOT EMPTY
+        let runner = this.head
+        while(runner.next != null){
+            length++;
+            runner = runner.next;
+        }
+
+        if(length < k){
+            return null;
+        }
+
+        else{
+            runner = this.head;
+            for( let i = 0; i < (length - k); i++){
+                runner = runner.next;
+            }
+            return runner.value;
+        }
+    }
 }
 /*
 var newList = new SLL(); 
