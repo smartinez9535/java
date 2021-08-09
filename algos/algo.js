@@ -258,6 +258,8 @@ class SLL{
             return runner.value;
         }
     }
+
+    /*---------------------------------------------------------------- */
 }
 /*
 var newList = new SLL(); 
@@ -284,3 +286,145 @@ newList3.insertAtFront(200);
 newList3.insertAtFront(300);
 console.log(newList3.average());
 */
+
+/*--------------------------------------------------------- */
+
+// MON
+// LAST IN FIRST OUT
+// LIFO - STACKS
+class Stack {
+    constructor(items = []) {
+        this.items = items;
+    }
+    // Time: O(1)
+    // Space: O(1)
+    push(item) {
+        this.items[this.items.length] = item;
+    }
+
+    // Time: O(1)
+    // Space: O(1)
+    // Returns undefined if empty
+    pop() {
+        this.items.splice(this.items.length - 1, 1);
+    }
+
+    // aka top, returns undefined if empty
+    // Time: O(1)
+    // Space: O(1)
+    peek() {
+        console.log(this.items[this.items.length - 1]);
+    }
+
+    // Time: O(1)
+    // Space: O(1)
+    isEmpty() {
+        if(this.items.length == 0){
+            return true;
+        }
+
+        else{
+            return false;
+        }
+    }
+
+    // Time: O(1)
+    // Space: O(1)
+    size() {
+        return this.items.length;
+    }
+
+    // Time: O(n) linear
+    // Space: O(n)
+    print() {
+        for(let i = 0; i <= this.items.length - 1; i++){
+            console.log(this.items[i]);
+        }
+    }
+}
+
+let stack1 = new Stack;
+console.log(stack1.isEmpty());
+stack1.push(1);
+stack1.push(2);
+stack1.push(3);
+stack1.peek();
+stack1.pop();
+stack1.peek();
+console.log(stack1.size());
+stack1.print();
+
+class SLNode {
+    constructor(value) {
+        this.value = value
+        this.next = null
+    }
+}
+
+class SLStack {
+    constructor() {
+        this.head = null;
+        this.length = 0;
+    }
+
+    isEmpty() {
+        if(this.head == null){
+            return "The stack is empty";
+        }
+    }
+
+    // Adds a new node with the given value in front of the head node.
+    push(value) {
+      //Start by creating a new node
+        var newNode = new SLNode(value)
+
+      // set the new node before the head of the linked list
+      // and attach this new node at the front
+        newNode.next = this.head;
+
+      // the new node is at the front now
+        this.head = newNode; 
+        this.length++; 
+
+    }
+
+    // Removes the head node
+    // return the popped value -- important!
+    pop() {
+        if(this.head == null){
+            return "The Stack is already empty";
+        }
+            var temp = this.head.value;
+            this.head = this.head.next;
+            this.length--;
+            return temp;
+
+
+    }
+
+    size() {
+        return this.length;
+    }
+
+    peek() {
+        if (this.length === 0) {
+            return "out of bounds";
+        }
+        return this.head.value; 
+
+    }
+
+    printPretty() {
+        if(this.head == null){
+            console.log("LIST EMPTY")
+            return
+        }
+        // IF THE LIST IS NOT EMPTY
+        var runner = this.head
+        let newString = "";
+        while(runner != null){
+            newString += runner.value + " ";
+            runner = runner.next
+        }
+        console.log(newString);
+    }

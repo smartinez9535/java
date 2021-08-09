@@ -9,7 +9,6 @@ public class BankAccount {
     protected static double totalMoney;
 
 	public BankAccount(double checkingBalance, double savingsBalance) {
-		super();
 		this.checkingBalance = checkingBalance;
 		this.savingsBalance = savingsBalance;
 		numOfAccounts++;
