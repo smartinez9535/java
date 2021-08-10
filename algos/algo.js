@@ -398,8 +398,6 @@ class SLStack {
             this.head = this.head.next;
             this.length--;
             return temp;
-
-
     }
 
     size() {
@@ -428,3 +426,83 @@ class SLStack {
         }
         console.log(newString);
     }
+
+}
+
+/*------------------------------------------------------------------------------------ */
+
+class SLQueue {
+    constructor() {
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
+    }
+
+    enqueue(value){
+        // create new node with the value sent in
+        let new_node = new SLNode(value);
+        // increment size
+        this.size++;
+        // check if empty
+        if(this.head == null){
+            // if empty set head and tail to new node
+            this.head = new_node;
+            this.tail = new_node;
+        }
+        else{
+            // not empty so just move tail
+            this.tail.next = new_node;
+            this.tail = new_node;
+        }
+    }
+
+    dequeue(){
+        // check if queue is empty
+        if(head == null) return null;
+        // check to see if only 1 item in queue
+        let answer = this.head;
+        if(this.head.next == null){
+            // set head and tail to null, queue now empty
+            this.head = null;
+            this.tail = null;
+        }
+        else{
+            // move head to next
+            this.head = this.head.next;
+        }
+        // reduce size
+        this.size--;
+        return answer;
+    }
+
+    isEmpty(){
+        // if empty return true
+        if(this.head == null){
+            return true;
+        }
+        else return false;
+    }
+
+    getSize(){
+        return this.size;
+    }
+
+    front(){
+        return this.head();
+    }
+
+    printPretty() {
+        if(this.head == null){
+            console.log("LIST EMPTY")
+            return
+        }
+        // IF THE LIST IS NOT EMPTY
+        let runner = this.head
+        let newString = "";
+        while(runner != null){
+            newString += runner.value + " ";
+            runner = runner.next
+        }
+        console.log(newString);
+    }
+}
