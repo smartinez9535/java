@@ -6,9 +6,9 @@ for (let i of [7,3,5,2]) {
     runner_temp = new_node;
 }
 
-console.log(head.val); //1
+/* console.log(head.val); //1
 console.log(head.next.val); //7
-console.log(head.next.next.next.val); // 5
+console.log(head.next.next.next.val); // 5 */
 
 /*------------------------------------------------------------------------ */
 
@@ -343,7 +343,7 @@ class Stack {
     }
 }
 
-let stack1 = new Stack;
+/* let stack1 = new Stack;
 console.log(stack1.isEmpty());
 stack1.push(1);
 stack1.push(2);
@@ -352,14 +352,14 @@ stack1.peek();
 stack1.pop();
 stack1.peek();
 console.log(stack1.size());
-stack1.print();
+stack1.print(); */
 
-class SLNode {
+/* class SLNode {
     constructor(value) {
         this.value = value
         this.next = null
     }
-}
+} */
 
 class SLStack {
     constructor() {
@@ -392,7 +392,7 @@ class SLStack {
     // return the popped value -- important!
     pop() {
         if(this.head == null){
-            return "The Stack is already empty";
+            return null;
         }
             var temp = this.head.value;
             this.head = this.head.next;
@@ -425,11 +425,18 @@ class SLStack {
             runner = runner.next
         }
         console.log(newString);
+        return newString;
     }
 
 }
 
 /*------------------------------------------------------------------------------------ */
+class SLNode {
+    constructor(value) {
+        this.value = value
+        this.next = null
+    }
+}
 
 class SLQueue {
     constructor() {
@@ -504,5 +511,93 @@ class SLQueue {
             runner = runner.next
         }
         console.log(newString);
+        return newString;
     }
+    
+    /*------------------------------------------------------------------- */
+
+    // equals
+    // Write a method on the Queue class that, given another queue, 
+    // will return whether they are equal (same items in same order).
+    // Do not use any extra array or objects as storage.
+    // Do not alter (pop from or push into) either queue.
+    equals(secondQ){
+        if(this.getSize() != secondQ.getSize()) return false;
+
+        /* let runner1 = this.head;
+        let runner2 = secondQ.head;
+        while(runner1 != null && runner2 != null){
+            if(runner1.value != runner2.value) return false;
+
+            else{
+                runner1 = runner1.next;
+                runner2 = runner2.next;
+            }
+        } */
+        if(this.printPretty() == secondQ.printPretty())return true;
+
+        else return false;
+    }
+
+    // isPalindrome
+    // Write a method on the Queue class that returns whether or not the queue is a palindrome
+    // Use only 1 stack as additional storage (no additional arrays / objects).
+    isPalindrome(){
+        if(this.head == null) return false;
+
+        let storageStack = new SLStack();
+
+        let runner = this.head;
+        while(runner != null){
+            storageStack.push(runner.value);
+            runner = runner.next;
+        }
+        
+        if(this.printPretty() == storageStack.printPretty()) return true;
+
+        else return false;
+    }
+
 }
+
+/* 
+_____ _____ ____ _____ ___ _   _  ____ 
+|_   _| ____/ ___|_   _|_ _| \ | |/ ___|
+  | | |  _| \___ \ | |  | ||  \| | |  _ 
+  | | | |___ ___) || |  | || |\  | |_| |
+  |_| |_____|____/ |_| |___|_| \_|\____|
+*/
+
+var q1 = new SLQueue()
+q1.enqueue(1)
+q1.enqueue(2)
+q1.enqueue(3)
+
+var q2 = new SLQueue()
+q2.enqueue(3)
+q2.enqueue(2)
+q2.enqueue(1)
+console.log(q1.equals(q2)) // SHOULD RETURN FALSE
+
+var q1 = new SLQueue()
+q1.enqueue(1)
+q1.enqueue(2)
+q1.enqueue(3)
+
+var q2 = new SLQueue()
+q2.enqueue(1)
+q2.enqueue(2)
+q2.enqueue(3)
+console.log(q1.equals(q2)) // SHOULD RETURN TRUE
+
+var q3 = new SLQueue()
+q3.enqueue("a")
+q3.enqueue("b")
+q3.enqueue("c")
+console.log(q3.isPalindrome()) // SHOULD RETURN FALSE
+
+var q3 = new SLQueue()
+q3.enqueue("a")
+q3.enqueue("b")
+q3.enqueue("a")
+console.log(q3.isPalindrome()) // SHOULD RETURN TRUE
