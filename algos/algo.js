@@ -1,4 +1,4 @@
-let head = new SLNode(1);
+/*let head = new SLNode(1);
 let runner_temp = head;
 for (let i of [7,3,5,2]) {
     let new_node = new SLNode(i);
@@ -12,7 +12,7 @@ console.log(head.next.next.next.val); // 5 */
 
 /*------------------------------------------------------------------------ */
 
-
+/*
 class SLNode{
     constructor(value){
         this.value = value
@@ -32,7 +32,7 @@ class SLL{
      * - Time: (?).
      * - Space: (?).
      * @returns {SinglyLinkedList} This list.
-     */
+     *//*
     printValues() {
         if(this.head == null){
             console.log("LIST EMPTY")
@@ -52,7 +52,7 @@ class SLL{
      * - Space: (?).
      * @param {any} data The data to be added to the new node.
      * @returns {SinglyLinkedList} This list.
-     */
+     *//*
     insertAtBack(data){
         // 1. SLL IS EMPTY
         // 2. SLL IS NOT EMPTY
@@ -76,7 +76,7 @@ class SLL{
      * - Space: (?).
      * @param {Array<any>} vals The data for each new node.
      * @returns {SinglyLinkedList} This list.
-     */
+     *//*
     seedFromArr(vals) {
     for (val of vals){
         insertAtBack(val);
@@ -85,7 +85,7 @@ class SLL{
     }
 
 /*----------------------------------Wednesday------------------------------------------- */
-
+/*
     insertAtFront(data) {
         //Start by creating a new node
         var newNode = new SLNode(data)
@@ -101,7 +101,7 @@ class SLL{
        * - Time: (?).
        * - Space: (?).
        * @returns {any} The data from the removed node.
-       */
+       *//*
     removeAtFront(){
         let temp = this.head; 
         this.head = this.head.next;
@@ -114,7 +114,7 @@ class SLL{
        * - Time: (?).
        * - Space: (?).
        * @returns {number|NaN} The average of the node's data.
-       */
+       *//*
     average() {
         let sum = 0;
         let amount = 0;
@@ -133,7 +133,7 @@ class SLL{
     }
 
     /*---------------------------------------------------------------------------------------- */
-
+/*
     contains(val){
         if(this.head == null){
             console.log("LIST EMPTY")
@@ -189,7 +189,7 @@ class SLL{
     }
 
     /*------------------------------------------------------------------ */
-
+/*
     secondToLast(){
         if(this.head == null || this.head.next == null){
             return null;
@@ -258,9 +258,9 @@ class SLL{
             return runner.value;
         }
     }
-
-    /*---------------------------------------------------------------- */
 }
+    /*---------------------------------------------------------------- */
+
 /*
 var newList = new SLL(); 
 
@@ -424,8 +424,83 @@ class SLStack {
             newString += runner.value + " ";
             runner = runner.next
         }
-        console.log(newString);
+        //console.log(newString);
         return newString;
+    }
+
+    /*--------------------------------------------------------------- */
+
+    /** Methods will be in the STACK class
+   * Returns a new stack that is copy of the original stack.
+   * Retain the original order. You may create extra temp 
+   * SLStacks and/or SLQueues 
+   * as storage.
+   * - Time: O(?).
+   * - Space: O(?).
+   *@returns {SLStack} Copy of the original stack
+   */
+    copy() {
+        if(this.head == null){
+            return null;
+        }
+
+        let copyStack = new SLStack();
+        let tempStack = new SLStack();
+
+        //Iterate through original stack, save to temp stack
+        let runner = this.head
+        while(runner != null){
+
+            tempStack.push(runner.value)
+            runner = runner.next
+        }
+
+        //Iterate through temp stack, save to answer stack to undo reversal
+        while(! tempStack.isEmpty()){
+
+            copyStack.push(tempStack.pop())
+        }
+        return copyStack;
+    }
+
+/**
+ * Rearranges the stack so that numbers > 0 are 
+ * on the top and any negatives are on the bottom
+ * Retain the order of the positives and negatives
+ * Use extra stacks and/or queues as storage.
+ * - Time: O(?).
+ * - Space: O(?).
+ *  @returns {any} The removed item.
+ */ 
+    partitionPositives() { //Horribly inefficient
+        if(this.head == null){
+            return null;
+        }
+
+        let partitionStack = new SLStack();
+        let positiveStack = new SLStack;
+        let negativeStack = new SLStack
+
+        //Iterate through stack, put negatives into temp stack
+        let runner = this.head
+        while(runner != null){
+            if(runner.value < 0){
+                negativeStack.push(runner.value)
+            }
+            else{
+                positiveStack.push(runner.value)
+            }
+            runner = runner.next
+        }
+
+        while(this.length != partitionStack.length)
+            if(! negativeStack.isEmpty()){
+                partitionStack.push(negativeStack.pop());
+            }
+            else{
+                partitionStack.push(positiveStack.pop());
+            }
+        return partitionStack;
     }
 
 }
@@ -510,7 +585,7 @@ class SLQueue {
             newString += runner.value + " ";
             runner = runner.next
         }
-        console.log(newString);
+        //console.log(newString);
         return newString;
     }
     
@@ -568,6 +643,23 @@ _____ _____ ____ _____ ___ _   _  ____
   |_| |_____|____/ |_| |___|_| \_|\____|
 */
 
+var s1 = new SLStack();
+s1.push(1)
+s1.push(2)
+s1.push(3)
+console.log(s1.printPretty())
+console.log(s1.copy().printPretty())
+
+var s2 = new SLStack()
+s2.push(1)
+s2.push(-2)
+s2.push(-3)
+s2.push(5)
+s2.push(6)
+console.log(s2.printPretty())
+console.log(s2.partitionPositives().printPretty())
+
+/*
 var q1 = new SLQueue()
 q1.enqueue(1)
 q1.enqueue(2)
@@ -601,3 +693,4 @@ q3.enqueue("a")
 q3.enqueue("b")
 q3.enqueue("a")
 console.log(q3.isPalindrome()) // SHOULD RETURN TRUE
+*/
