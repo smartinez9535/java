@@ -634,6 +634,71 @@ class SLQueue {
     }
 
 }
+/*---------------------------------------------------------- */
+class CircleQueue {
+    constructor(capacity) {
+        this.size = 0
+        this.head_index = -1
+        this.tail_index = -1
+
+        // Items is an array with length == capacity 
+        // where all values are undefined
+        this.items = new Array(capacity)
+
+        this.capacity = capacity
+
+    }
+
+    // Adds a new element into the list.
+    enqueue(val) {
+        // CIRCLE QUEUE IS FULL
+        if(this.size == this.capacity){
+            return "Queue is full, cannot enqueue"
+        }
+
+        // CIRCLE QUEUE IS EMPTY
+        else if(this.head_index == -1){
+            this.head_index = 0
+            this.tail_index = 0
+            this.items[this.head_index] = val
+            this.size++
+        }
+        // CIRCLE QUEUE IS PARTIALLY FULL
+        else{
+            this.tail_index = (this.tail_index + 1) % this.capacity
+            this.items[this.tail_index] = val
+            this.size++
+        }
+        
+    }
+
+    dequeue() {
+        // CIRCLE QUEUE IS EMPTY SO NOTHING TO DEQUEUE
+        if(this.size == 0){
+            return "Queue empty, cannot dequeue"
+        }
+        // CIRCLE QUEUE IS EMPTY AFTER DEQUEUE
+        else if(this.size == 1){
+            let removedVal = this.items[this.head_index]
+            this.items[this.head_index] = null
+            this.head_index = -1
+            this.tail_index = -1
+            this.size--
+
+            return removedVal
+        }
+        // CIRCLE QUEUE IS PARTIALLY EMPTY AFTER DEQUEUE
+        else{
+            let removedVal = this.items[this.head_index]
+            this.items[this.head_index] = null
+            this.size--
+            this.head_index = (this.head_index + 1) % this.capacity
+
+            return removedVal
+        }
+    }
+
+}
 
 /* 
 _____ _____ ____ _____ ___ _   _  ____ 
@@ -642,7 +707,23 @@ _____ _____ ____ _____ ___ _   _  ____
   | | | |___ ___) || |  | || |\  | |_| |
   |_| |_____|____/ |_| |___|_| \_|\____|
 */
+/*
+var s1 = new CircleQueue(3);
+s1.enqueue(1)
+s1.enqueue(2)
+s1.enqueue(3)
+s1.enqueue(4)
 
+s1.dequeue()
+s1.dequeue()
+s1.dequeue()
+s1.dequeue()
+*/
+
+
+
+
+/*
 var s1 = new SLStack();
 s1.push(1)
 s1.push(2)
@@ -658,7 +739,7 @@ s2.push(5)
 s2.push(6)
 console.log(s2.printPretty())
 console.log(s2.partitionPositives().printPretty())
-
+*/
 /*
 var q1 = new SLQueue()
 q1.enqueue(1)
@@ -694,3 +775,103 @@ q3.enqueue("b")
 q3.enqueue("a")
 console.log(q3.isPalindrome()) // SHOULD RETURN TRUE
 */
+
+/*---------------------------------------------------------------------- */
+
+class BSTNode{
+    constructor(value){
+        this.value = value
+        this.left = null
+        this.right = null
+    }
+}
+
+class BST{
+    constructor(){
+        this.root = null
+    }
+
+    search(val){
+        // BST IS EMPTY
+        if(this.root === null){
+            return false;
+        }
+        // BST IS NOT EMPTY
+        var runner = this.root
+
+        while(runner != null){
+            // IS THE VALUE WITHIN THE NODE
+            if(runner.value === val){
+                return true;
+            }
+            else if(runner.value > val){
+                runner = runner.left;
+            }
+            else if(runner.value < val){
+                runner = runner.right;
+            }
+        }
+        return false;
+    }
+
+    insertIterative(val){
+        // IS THE BST EMPTY?
+        if(this.root === null){
+            this.root = new BSTNode(val);
+            return this.root;
+        }
+
+        
+        //else if(this.search(val) === true){
+        //    return "Value already in array, cannot insert."
+        //}
+        // HAVE YOUR RUNNER END UP IN THE CORRECT SPOT
+        let runner = this.root
+
+        while(runner != null){
+            // CHECK TO SEE IF VALUE TO INSERT IS LESS THAN RUNNER VALUES
+            if(runner.value > val){
+
+                // CHECK TO SEE IF THERE IS AN EMPTY PLACE TO CREATE NEW NODE
+                if(runner.left == null){
+                    runner.left = new BSTNode(val);
+                    return
+                }
+
+                // IF THERE IS AN EXISTING NODE, KEEP ON RUNNING THROUGH BST
+                runner = runner.left;
+            }
+
+            // CHECK TO SEE IF VALUE TO INSERT IS GREATER THAN RUNNER VALUES
+            else if(runner.value < val){
+
+                if(runner.right == null){
+                    runner.right = new BSTNode(val);
+                    return
+                }
+
+                runner = runner.right;
+            }
+        }
+        return false;
+    }
+
+    /* insertRecursive(val){
+        var runner = this.root;
+        if(this.root == null){
+            this.root = new BSTNode(val);
+            return;
+        }
+        
+        else if(runner.left > val && runner.left != null){
+
+        }
+    } */
+}
+
+var binary1 = new BST();
+
+binary1.insertIterative(5);
+binary1.insertIterative(2);
+binary1.insertIterative(8);
+console.log(binary1)
