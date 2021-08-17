@@ -856,17 +856,131 @@ class BST{
         return false;
     }
 
-    /* insertRecursive(val){
-        var runner = this.root;
-        if(this.root == null){
-            this.root = new BSTNode(val);
-            return;
+    insertRecursive(val){
+        let newNode = new BSTNode(val);
+        if(this.root === null){
+            this.root = newNode;
         }
-        
-        else if(runner.left > val && runner.left != null){
 
+        if(val < current.value){
+            if(current.left == null){
+                current.left = newNode;
+                return newNode;
+            }
+            else{
+                return this.insertRecursive(val, current.left);
+            }
         }
-    } */
+
+        else if(val > current.value){
+            if(current.right == null){
+                current.right = newNode;
+                return newNode;
+            }
+            else{
+                return this.insertRecursive(val, current.right);
+            }
+        }
+    }
+
+        /**
+     * Determines if this tree is empty.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @returns {boolean} Indicates if this tree is empty.
+     */
+        isEmpty() {
+            if(this.root === null){
+                return true;
+            }
+
+            else return false;
+        }
+    
+        /**
+         * Retrieves the smallest integer data from this tree.
+         * - Time: O(?).
+         * - Space: O(?).
+         * @param {Node} current The node that is currently accessed from the tree as
+         *    the tree is being traversed.
+         * @returns {number} The smallest integer from this tree.
+         */
+        min() {
+
+            if(this.root === null){
+                return null;
+            }
+
+            let runner = this.root
+            while(runner.left != null){
+                runner = runner.left
+            }
+
+            return runner.value;
+        }
+    
+        /**
+         * Retrieves the smallest integer data from this tree.
+         * - Time: O(?).
+         * - Space: O(?).
+         * @param {Node} current The node that is currently accessed from the tree as
+         *    the tree is being traversed.
+         * @returns {number} The smallest integer from this tree.
+         */
+        minRecursive(current = this.root) {
+            if(current === null){
+                return null;
+            }
+            // 1. BASE CASE - WHEN THE NODE GIVEN IS NULL
+            if(current.left == null){
+                return current.value;
+            }
+            // 2. FORWARD PROGRESS
+            // 3. RECURSIVE CALL
+            return this.minRecursive(current.left);
+        }
+    
+        /**
+         * Retrieves the largest integer data from this tree.
+         * - Time: O(?).
+         * - Space: O(?).
+         * @param {Node} current The node that is currently accessed from the tree as
+         *    the tree is being traversed.
+         * @returns {number} The largest integer from this tree.
+         */
+        max() {
+            if(this.root === null){
+                return null;
+            }
+
+            let runner = this.root
+            while(runner.right != null){
+                runner = runner.right
+            }
+
+            return runner.value;
+        }
+    
+        /**
+         * Retrieves the largest integer data from this tree.
+         * - Time: O(?).
+         * - Space: O(?).
+         * @param {Node} current The node that is currently accessed from the tree as
+         *    the tree is being traversed.
+         * @returns {number} The largest integer from this tree.
+         */
+        maxRecursive(current = this.root) {
+            if(current === null){
+                return null;
+            }
+            // 1. BASE CASE - WHEN THE NODE GIVEN IS NULL
+            if(current.right == null){
+                return current.value;
+            }
+            // 2. FORWARD PROGRESS
+            // 3. RECURSIVE CALL
+            return this.maxRecursive(current.right);
+        }
 }
 
 var binary1 = new BST();
@@ -874,4 +988,11 @@ var binary1 = new BST();
 binary1.insertIterative(5);
 binary1.insertIterative(2);
 binary1.insertIterative(8);
+binary1.insertIterative(10);
+binary1.insertIterative(1);
 console.log(binary1)
+console.log(binary1.isEmpty())
+console.log(binary1.min())
+console.log(binary1.max())
+console.log(binary1.minRecursive())
+console.log(binary1.maxRecursive())
