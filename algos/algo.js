@@ -1015,7 +1015,42 @@ class BST{
         node.left = this.sortedArrToBSTHelper(arr.slice(0, midIdx));
         node.right = this.sortedArrToBSTHelper(arr.slice(midIdx + 1, arr.length));
         return node;
-    };
+    }
+
+    size(node = this.root) {
+        // 1. BASE CASE
+        if(node == null){
+            return 0
+        }
+        // FORWARD PROGRESS
+        return (1 + this.size(node.left) + this.size(node.right))
+        // RECURSIVE CALLS
+    }
+
+    /**
+     * Calculates the height of the tree which is based on how many nodes from
+     * top to bottom (whichever side is taller).
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} node The current node during traversal of this tree.
+     * @returns {number} The height of the tree.
+     */
+    height(node = this.root) {
+        if(node == null){
+            return 0
+        }
+
+        let leftHeight = this.height(node.left);
+        let rightHeight = this.height(node.right);
+
+        if(leftHeight > rightHeight){
+            return leftHeight + 1;
+        }
+
+        else{
+            return rightHeight + 1;
+        }
+    }
 }
 
 var binary1 = new BST();
@@ -1025,6 +1060,8 @@ binary1.insertIterative(2);
 binary1.insertIterative(8);
 binary1.insertIterative(10);
 binary1.insertIterative(1);
+binary1.insertIterative(11);
+binary1.insertIterative(13);
 console.log(binary1)
 console.log(binary1.isEmpty())
 console.log(binary1.min())
@@ -1032,3 +1069,5 @@ console.log(binary1.max())
 //console.log(binary1.minRecursive())
 //console.log(binary1.maxRecursive())
 binary1.printInOrder()
+console.log("Size: " + binary1.size())
+console.log("Height: " + binary1.height())
