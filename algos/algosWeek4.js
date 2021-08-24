@@ -275,6 +275,30 @@ class SinglyLinkedList {
         return runner.data;
     }
 
+    getSecondToLastNode() {
+        if (this.isEmpty()) return null;
+    
+        let runner = this.head;
+    
+        while (runner.next.next != null) {
+            runner = runner.next;
+        }
+    
+        return runner;
+    }
+
+    getLastNode() {
+        if (this.isEmpty()) return null;
+    
+        let runner = this.head;
+    
+        while (runner.next != null) {
+            runner = runner.next;
+        }
+    
+        return runner;
+    }
+
     // WEEK 4
     // ========== MONDAY ==========
 
@@ -327,7 +351,30 @@ class SinglyLinkedList {
      * - Space: (?).
      * @returns {boolean} Whether the list has a loop or not.
      */
-    hasLoop() {}
+    hasLoop() {
+        //Check if empty
+        if(this.isEmpty()) return this;
+
+        //Set walker to head
+        let walker = this.head;
+        //Set runner to head.next
+        let runner = walker.next;
+
+        //Iterate through list
+        while(runner != null){
+
+            //if runner loops back one to walker, return true;
+            if(runner.next == walker){
+                return true;
+            }
+            //move runner and walker one forward
+            walker = runner;
+            runner = walker.next;
+        }
+
+    //whole list iterated through, no loop, return false
+        return false;
+    }
 
     /**
      * Removes all the nodes that have a negative integer as their data.
@@ -335,16 +382,63 @@ class SinglyLinkedList {
      * - Space: (?).
      * @returns {SinglyLinkedList} This list after the negatives are removed.
      */
-    removeNegatives() {}
+    removeNegatives() {
+        if(this.isEmpty()) return this;
+        // console.log("323")
+        var p1 = null;
+        var p2 = this.head;
+        while(p2!=null){
+            
+            if(p2.value < 0){
+                // console.log("329")
+                if(p1!=null){
+                    // console.log("331")
+                    p1.next = p2.next
+                }
+                else{
+                    // console.log("335")
+                    this.head = p2.next
+                }
+                p2 = p2.next
+            }
+            else{
+                // console.log("343")
+                p1 = p2;
+                p2 = p2.next
+            }
+
+        }
+        return this;
+    
+    }
 }
 
 let newList = new SinglyLinkedList();
 
 newList.insertAtFront(10);
 newList.insertAtBack(20);
+newList.insertAtBack(-30);
 newList.insertAtBack(30);
+newList.insertAtBack(-30);
+
 newList.length();
 //newList.printValues();
-console.log("/n")
-newList.reverse();
+console.log("------------------------------------------")
+//newList.reverse();
 newList.printValues();
+console.log("------------------------------------------")
+newList.removeNegatives();
+newList.printValues();
+
+// has loop test case
+var sslArr = [3, 5, -2, 3,-7, 9, 1, 0 -2, 8]
+let testList = new SinglyLinkedList();
+testList.seedFromArr(sslArr);
+var secondToLastNode = testList.getSecondToLastNode();
+var lastNode = testList.getLastNode();
+lastNode.next = secondToLastNode;
+
+// remove Negatives Test Case
+var sslArr = [-4, -2, 3, 5, -2, 9, 1, 0 -2, 8]
+const testList2 = new SinglyLinkedList();
+testList2.seedFromArr(sslArr);
