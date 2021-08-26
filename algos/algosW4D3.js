@@ -53,6 +53,53 @@ class MinHeap {
         }
         // 3. SWAP IF NECESSARY
     }
+
+    extract(){
+        // TO SAVE THE MIN NUMBER THAT WE WANT TO RETURN
+        let extracted = this.heap[1];
+        // SWAP THE FIRST AND LAST NUMBER IN ARR
+        let temp = this.heap[this.heap.length - 1];
+        this.heap[this.heap.length - 1] = extracted;
+        this.heap[1] = temp;
+        // POP THE LAST NUMBER
+        this.heap.pop();
+
+        // THE INDEX OF THE VALUE THAT WE ARE SWAPPING
+        let index = 1;
+        let leftIdx = index * 2
+        let rightIdx = leftIdx + 1
+
+        while(leftIdx < this.heap.length){
+            // IS A SWAP NECESSARY
+            if(this.heap[index] < this.heap[leftIdx] && this.heap[index] < this.heap[rightIdx]){
+                break;
+            }
+            // WHICH CHILD VALUE DO WE SWAP WITH
+            if(this.heap[leftIdx] < this.heap[rightIdx]){
+                // LOGIC FOR THE ACTUAL SWAP IF NECESSARY
+                let temp = this.heap[leftIdx];
+                this.heap[leftIdx] = this.heap[index];
+                this.heap[index] = temp;
+                // RESETTING THE INDEXES FOR THE NEXT STEP OF SWAPS
+                index = leftIdx;
+                leftIdx = index * 2
+                rightIdx = leftIdx + 1
+            }
+
+            else{
+                // LOGIC FOR THE ACTUAL SWAP IF NECESSARY
+                let temp = this.heap[rightIdx];
+                this.heap[rightIdx] = this.heap[index];
+                this.heap[index] = temp;
+                // RESETTING THE INDEXES FOR THE NEXT STEP OF SWAPS
+                index = rightIdx;
+                leftIdx = index * 2
+                rightIdx = leftIdx + 1
+            }
+        }
+        // RETURN THE MIN NUMBER
+        return extracted;
+    }
 }
 
 let mh = new MinHeap();
@@ -64,3 +111,5 @@ mh.insert(1);
 mh.insert(5);
 console.log(mh);
 console.log(mh.getMin());
+console.log("Extracted: " + mh.extract())
+console.log(mh);
